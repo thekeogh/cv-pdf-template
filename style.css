@@ -1,0 +1,210 @@
+/**
+ * Page settings for printing and PDF conversion.
+ * 
+ * @remarks
+ * The CSS uses mm and pt dimensions to optimise layout for printing and PDFs. Each section includes
+ * `page-break-inside: avoid` to maintain proper placement on page breaks during printing.
+ */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/**
+ * Fonts
+ * 
+ * @remarks
+ * Share the font from my portfolio site, as next.js has done all the work for us.
+ */
+@font-face {
+  font-family: "Futura PT Web";
+  src: url(https://mckeogh.uk/_next/static/media/daf3de222fa76972-s.p.woff2) format("woff2");
+  font-display: swap;
+  font-weight: 300;
+  font-style: normal
+}
+@font-face {
+  font-family: "Futura PT Web";
+  src: url(https://mckeogh.uk/_next/static/media/c7013c45f18f3d2c-s.p.woff2) format("woff2");
+  font-display: swap;
+  font-weight: 300;
+  font-style: italic
+}
+@font-face {
+  font-family: "Futura PT Web";
+  src: url(https://mckeogh.uk/_next/static/media/9935a2bdf07d4ec3-s.p.woff2) format("woff2");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal
+}
+@font-face {
+  font-family: "Futura PT Web";
+  src: url(https://mckeogh.uk/_next/static/media/7edee3b66b1fe817-s.p.woff2) format("woff2");
+  font-display: swap;
+  font-weight: 400;
+  font-style: italic
+}
+@font-face {
+  font-family: "Futura PT Web";
+  src: url(https://mckeogh.uk/_next/static/media/d520a3fbe6eac708-s.p.woff2) format("woff2");
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal
+}
+@font-face {
+  font-family: "Futura PT Web";
+  src: url(https://mckeogh.uk/_next/static/media/6a1fecfca6f47d80-s.p.woff2) format("woff2");
+  font-display: swap;
+  font-weight: 700;
+  font-style: italic
+}
+
+/**
+ * Variables.
+ * 
+ * @remarks
+ * Shared variables for the entire page.
+ */
+:root {
+  --color-green-100: #66bb6a;
+  --color-blue-100: #171e27;
+  --color-blue-80: #222a37;
+  --color-grey-10: #e1e1e1;
+
+  --font-family-body: 'Futura PT Web';
+  --font-family-title: 'Rubik';
+  --font-size-body: 13pt;
+  --font-size-title: 18pt;
+}
+
+/**
+ * Reset
+ * 
+ * @remarks
+ * Add a very simple reset to the elements we may use.
+ */
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+body,
+h1, h2, h3, h4, p,
+li,
+i,
+blockquote,
+dl, dd,
+pre {
+  margin: 0;
+  font-weight: 400;
+  font-style: normal;
+}
+img {
+  max-width: 100%;
+  border: 0;
+  display: block;
+}
+
+/**
+ * Structure
+ * 
+ * @remarks
+ * Fixed dimensions to support A4 size.
+ */
+html, body {
+  width: 210mm;
+  margin: 0;
+  padding: 0;
+  background: var(--color-grey-10);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+}
+.page {
+  width: 100%;
+  height: 297mm;
+  margin: 0 0 1px;
+  background: #fff
+}
+
+/**
+ * Typography
+ * 
+ * @remarks
+ * Add styles to elements that will always follow the same look, regardless of where they are.
+ */
+h1 {
+  font-family: var(--font-family-title);
+  font-size: var(--font-size-title)
+}
+p {
+  margin: 0 0 8mm;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+}
+
+/**
+ * Sidebar.
+ * 
+ * @remarks
+ * The left sidebar will be replicated on each page of the print/PDF output. It includes comprehensive profile
+ * information about me, so it needs to be repeated.
+ */
+aside {
+  width: 65mm;
+  padding: 10mm 5mm;
+  background: var(--color-blue-80);
+  color: #fff;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+}
+aside header {
+  margin-bottom: 10mm;
+  text-align: center;
+}
+aside header img {
+  width: 25mm;
+  height: 25mm;
+  margin: 0 0 2mm;
+  border-radius: 50%;
+  display: inline-block
+}
+aside header p {
+  font-weight: 700;
+  font-size: 16pt;
+  position: relative;
+}
+aside header p::after {
+  --spacing: 4mm;
+  content: "";
+  width: var(--spacing);
+  height: 2px;
+  background: var(--color-green-100);
+  left: calc(50% - calc(var(--spacing) / 2));
+  bottom: calc(-1 * var(--spacing));
+  position: absolute;
+}
+aside header span {
+  opacity: .5;
+}
+
+/**
+ * Page chunks.
+ * 
+ * @remarks
+ * Each chunk is given the `page-break-inside: avoid` property to preserve its placement during page breaks while
+ * printing. We apply this class to sections that should not be split across pages, ensuring that complete sections
+ * (e.g., skills, experience) are not forced onto new pages also.
+ */
+ .chunk {
+  margin-bottom: 16mm;
+  page-break-inside: avoid;
+}
+
+/**
+ * Print only styles
+ */
+@media print {
+  html, body { 
+    background: #fff;
+  }
+}
