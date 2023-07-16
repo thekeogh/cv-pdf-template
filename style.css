@@ -73,8 +73,12 @@
 
   --font-family-body: 'Futura PT Web';
   --font-family-title: 'Rubik';
+  --font-size-small: 11pt;
   --font-size-body: 13pt;
-  --font-size-title: 18pt;
+  --font-size-title: 20pt;
+
+  --dimension-structure-padding: 10mm;
+  --dimension-width-aside: 60mm;
 }
 
 /**
@@ -116,11 +120,13 @@ html, body {
   background: var(--color-grey-10);
   font-family: var(--font-family-body);
   font-size: var(--font-size-body);
+  color: var(--color-blue-100);
 }
 .page {
   width: 100%;
   height: 297mm;
   margin: 0 0 1px;
+  padding: var(--dimension-structure-padding) var(--dimension-structure-padding) var(--dimension-structure-padding) calc(var(--dimension-width-aside) + var(--dimension-structure-padding));
   background: #fff
 }
 
@@ -131,13 +137,45 @@ html, body {
  * Add styles to elements that will always follow the same look, regardless of where they are.
  */
 h1 {
+  margin: 0 0 3mm;
   font-family: var(--font-family-title);
-  font-size: var(--font-size-title)
+  font-size: var(--font-size-title);
+}
+h1::after {
+  content: ".";
+  color: var(--color-green-100);
+}
+h2 {
+  margin: 0 0 2mm;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-small);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--color-blue-100);
+  letter-spacing: 2px;
+  opacity: .5;
 }
 p {
-  margin: 0 0 8mm;
+  margin: 0 0 5mm;
   font-family: var(--font-family-body);
   font-size: var(--font-size-body);
+}
+p:last-child {
+  margin-bottom: 0;
+}
+.muted {
+  color: #999
+}
+
+/**
+ * Hyperlinks
+ * 
+ * @remarks
+ * We try to uniform hyperlinks across the app, dependent on their location. We don't need to do much with links for PDF.
+ */
+a, a:visited, a:active {
+  color: inherit;
+  text-decoration: underline;
 }
 
 /**
@@ -148,8 +186,8 @@ p {
  * information about me, so it needs to be repeated.
  */
 aside {
-  width: 65mm;
-  padding: 10mm 5mm;
+  width: var(--dimension-width-aside);
+  padding: var(--dimension-structure-padding) 5mm;
   background: var(--color-blue-80);
   color: #fff;
   left: 0;
@@ -186,6 +224,21 @@ aside header p::after {
 aside header span {
   opacity: .5;
 }
+aside dl {
+  flex-direction: column;
+  display: flex;
+}
+aside dl dt {
+  margin: 0 0 1mm;
+  color: var(--color-green-100);
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  display: block;
+}
+aside dl dd {
+  margin: 0 0 7mm;
+}
 
 /**
  * Page chunks.
@@ -196,8 +249,94 @@ aside header span {
  * (e.g., skills, experience) are not forced onto new pages also.
  */
  .chunk {
-  margin-bottom: 16mm;
+  margin-bottom: var(--dimension-structure-padding);
   page-break-inside: avoid;
+}
+.chunk:last-child {
+  margin-bottom: 0
+}
+
+/**
+ * Grid.
+ * 
+ * @remarks
+ * Very basic grid system that can be used across the app. Will be used minimally.
+ */
+.grid {
+  row-gap: 5mm;
+  flex-direction: column;
+  display: flex;
+}
+.grid .row {
+  column-gap: 5mm;
+  display: flex;
+}
+.grid .row .column {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 0;
+}
+
+/**
+ * Bullets.
+ * 
+ * @remarks
+ * Our bullets follow the green dot branding, we use this as the bullet.
+ */
+.bullets {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.bullets li {
+  margin: 0 0 2mm;
+  padding: 0 0 0 4mm;
+  position: relative;
+}
+.bullets li::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: var(--color-green-100);
+  left: 0;
+  top: calc(50% - 2.5px);
+  position: absolute;
+}
+
+/**
+ * Experience
+ * 
+ * @remarks
+ * All experience articles
+ */
+.experience {
+  margin: 0 0 8mm;
+}
+.experience h3 {
+  font-weight: 700;
+}
+.experience ul {
+  margin: 0 0 2mm;
+  padding: 0;
+  list-style: none;
+}
+.experience ul li {
+  margin: 0 5mm 0 0;
+  color: #999;
+  display: inline-block;
+  position: relative;
+}
+.experience ul li::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: var(--color-green-100);
+  right: -3.5mm;
+  top: calc(50% - 2px);
+  position: absolute;
+}
+.experience ul li:last-child:after {
+  display: none
 }
 
 /**
