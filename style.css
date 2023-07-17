@@ -73,12 +73,12 @@
 
   --font-family-body: 'Futura PT Web';
   --font-family-title: 'Rubik';
-  --font-size-small: 11pt;
-  --font-size-body: 13pt;
-  --font-size-title: 20pt;
+  --font-size-small: 10pt;
+  --font-size-body: 12pt;
+  --font-size-title: 16pt;
 
-  --dimension-structure-padding: 10mm;
-  --dimension-width-aside: 60mm;
+  --dimension-structure-padding: 6mm;
+  --dimension-width-aside: 55mm;
 }
 
 /**
@@ -140,6 +140,7 @@ h1 {
   margin: 0 0 3mm;
   font-family: var(--font-family-title);
   font-size: var(--font-size-title);
+  font-weight: 800;
 }
 h1::after {
   content: ".";
@@ -263,12 +264,13 @@ aside dl dd {
  * Very basic grid system that can be used across the app. Will be used minimally.
  */
 .grid {
-  row-gap: 5mm;
+  --gap: 3mm;
+  row-gap: var(--gap);
   flex-direction: column;
   display: flex;
 }
 .grid .row {
-  column-gap: 5mm;
+  column-gap: var(--gap);
   display: flex;
 }
 .grid .row .column {
@@ -290,17 +292,14 @@ aside dl dd {
 }
 .bullets li {
   margin: 0 0 2mm;
-  padding: 0 0 0 4mm;
-  position: relative;
+  padding: 0 .5mm 0 0;
+  display: inline-block;
 }
 .bullets li::after {
-  content: "";
-  width: 5px;
-  height: 5px;
-  background: var(--color-green-100);
-  left: 0;
-  top: calc(50% - 2.5px);
-  position: absolute;
+  content: ",";
+}
+.bullets li:last-child:after {
+  display: none
 }
 
 /**
